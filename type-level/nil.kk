@@ -5,7 +5,8 @@
    use this file except in compliance with the License. A copy of the License
    can be found in the LICENSE file at the root of this distribution.
 ----------------------------------------------------------------------------*/
-import template
+module type-level/nil
 
-pub fun main()
-  template()
+// An empty type-level list
+pub type type-nil
+  TNil
