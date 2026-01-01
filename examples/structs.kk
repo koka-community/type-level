@@ -11,9 +11,9 @@ type fielda
 type fieldb
 
 fun example()  
-  val record = ("1".field : fld<fielda>) + ("Hello".field : fld<fieldb>)
-  val f : fld<fieldb> = record.get-field()
+  val record = ("1".mk-field : fld<fielda>) + ("Hello".mk-field : fld<fieldb>)
+  val f : fld<fieldb> = record.field
   f.println 
-  val updated-record = record.update-field("World".field : fld<fieldb>)
-  val new : fld<fieldb> = updated-record.get-field()
+  val updated-record = record.update-field("World".mk-field : fld<fieldb>)
+  val new : fld<fieldb> = updated-record.field
   new.println
