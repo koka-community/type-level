@@ -36,3 +36,9 @@ pub fun tnil/list(l : type-nil) : list<a>
   Nil
 pub fun tcons/list(TCons(h, t) : type-cons<a, b>, ?list : (b) -> list<a>) : list<a>
   Cons(h, t.list)
+
+pub fun mapper(x : a, ?show : a -> string) : string
+  x.show 
+
+pub fun show(t : a, ?map : a -> b, ?list : b -> list<string>) : list<string>
+  t.map.list
