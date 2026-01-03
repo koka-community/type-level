@@ -32,7 +32,13 @@ pub fun tnil/map(l: type-nil) : type-nil
 pub fun tcons/map(TCons(x, t) : type-cons<a, b>, ?mapper : (a -> c), ?map : (b) -> d) : type-cons<c, d>
   TCons(mapper(x), t.map)
 
-pub fun tnil/list(l : type-nil) : list<a>
+pub fun tnil/to-list(l : type-nil) : list<a>
   Nil
-pub fun tcons/list(TCons(h, t) : type-cons<a, b>, ?list : (b) -> list<a>) : list<a>
-  Cons(h, t.list)
+pub fun tcons/to-list(TCons(h, t) : type-cons<a, b>, ?to-list : (b) -> list<a>) : list<a>
+  Cons(h, t.to-list)
+
+pub fun show/mapper(x : a, ?show : a -> string) : string
+  show(x)
+
+pub fun show(t : type-cons<a,b>, ?map : type-cons<a,b> -> c, ?to-list : c -> list<string>) : list<string>
+  t.map.to-list
