@@ -13,4 +13,4 @@ fun main()
   fun mapper(x : a, ?show : a -> string) : string
     x.show 
   val appended = left ++ right ++ left
-  appended.map().list.show
+  appended.map().to-list.show
