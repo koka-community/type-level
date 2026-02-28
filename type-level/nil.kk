@@ -10,3 +10,6 @@ module type-level/nil
 // An empty type-level list
 pub type type-nil
   TNil
+
+pub fun to-list(self: type-nil): list<a>
+  Nil

@@ -11,6 +11,6 @@ fun main()
   val left = 0 +: "Hi!" +: "Hi!" +: TNil
   val right = [1, 2] +: 3 +: "Hi!" +: "Hi!" +: TNil
   fun mapper(x : a, ?show : a -> string) : string
-    x.show 
+   x.show 
   val appended = left ++ right ++ left
   appended.map().to-list.show
