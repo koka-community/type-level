@@ -24,6 +24,8 @@ pub fun any/mk-field(v: a): field<n,a>
   Field(v)
 pub fun field/(+)(f1: field<n,f>, f2: field<n1,f1>) : type-struct<n,f,type-struct<n1,f1,type-nil>>
   TStruct(f1, TStruct(f2, TNil))
+pub fun end/(+)(f1: field<n,f>, f2: type-nil) : type-struct<n,f,type-nil>
+  TStruct(f1, TNil)
 pub fun prepend/(+)(f1: field<n,f>, s: type-struct<n1,f1,r>) : type-struct<n,f,type-struct<n1,f1,r>>
   TStruct(f1, s)
 
@@ -36,3 +38,6 @@ pub fun direct/update-field(self: type-struct<n,f,r>, new-field: field<n,f1>) : 
   TStruct(new-field, self.rest)
 pub fun recur/update-field(self: type-struct<n,f,r>, new-field: field<n1,f1>, ?update-field: (r, field<n1,f1>) -> r1) : type-struct<n,f,r1>
   TStruct(self.type-struct/field, self.rest.update-field(new-field))
+
+pub fun to-list(self: type-struct<n,f,r>, ?map-field: f -> e a, ?to-list: r -> e list<a>): e list<a>
+  Cons(map-field(self.type-struct/field.v), self.rest.to-list)
