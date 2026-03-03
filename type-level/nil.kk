@@ -11,5 +11,18 @@ module type-level/nil
 pub type type-nil
   TNil
 
-pub fun to-list(self: type-nil): list<a>
+// List operations for type-nil
+pub fun append(_: type-nil, r : b) : b
+  r
+pub fun (++)(_: type-nil, r : b) : b
+  r
+pub fun map(l: type-nil) : type-nil
+  l
+pub fun to-list(_: type-nil): list<a>
   Nil
+
+// Show instances for type-nil
+pub fun strlist/show(_: type-nil): list<string>
+  Nil
+pub fun empty/show(_: type-nil): string
+  "[]"

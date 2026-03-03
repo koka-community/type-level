@@ -24,7 +24,7 @@ pub fun any/mk-field(v: a): field<n,a>
   Field(v)
 pub fun field/(+)(f1: field<n,f>, f2: field<n1,f1>) : type-struct<n,f,type-struct<n1,f1,type-nil>>
   TStruct(f1, TStruct(f2, TNil))
-pub fun end/(+)(f1: field<n,f>, f2: type-nil) : type-struct<n,f,type-nil>
+pub fun end/(+)(f1: field<n,f>, _: type-nil) : type-struct<n,f,type-nil>
   TStruct(f1, TNil)
 pub fun prepend/(+)(f1: field<n,f>, s: type-struct<n1,f1,r>) : type-struct<n,f,type-struct<n1,f1,r>>
   TStruct(f1, s)
