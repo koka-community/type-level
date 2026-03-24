@@ -20,6 +20,8 @@ pub fun map(l: type-nil) : type-nil
   l
 pub fun to-list(_: type-nil): list<a>
   Nil
+pub fun (==)(_: type-nil, _: type-nil): bool
+  True
 
 // Show instances for type-nil
 pub fun strlist/show(_: type-nil): list<string>

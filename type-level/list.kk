@@ -29,6 +29,12 @@ pub fun tcons/map(TCons(x, t) : type-cons<a, b>, ?mapper : (a -> c), ?map : (b) 
 pub fun tcons/to-list(TCons(h, t) : type-cons<a, b>, ?to-list : (b) -> list<a>) : list<a>
   Cons(h, t.to-list)
 
+pub fun map/(==)(TCons(h1, t1) : type-cons<a, b>, TCons(h2, t2) : type-cons<a, b>, ?a/(==) : (a, a) -> bool, ?tail/(==) : (b, b) -> bool) : bool
+  a/(==)(h1, h2) && tail/(==)(t1, t2)
+
+pub fun mapend/show(t : type-cons<a,b>, ?a/show : a -> string, ?tail/show : b -> string) : list<string>
+  match t 
+    TCons(h, t') -> Cons(h.show, [t'.show])
 pub fun map/show(t : type-cons<a,b>, ?a/show : a -> string, ?tail/show : b -> list<string>) : list<string>
   match t 
     TCons(h, t') -> Cons(h.show, t'.show)
