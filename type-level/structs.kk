@@ -8,36 +8,38 @@
 module type-level/structs
 pub import type-level/nil
 
-abstract struct field<n,f> 
+pub infixr 5 (*:)
+
+pub struct field<n,f>
   v : f
 
 pub fun field/show(f: field<n,f>, ?show: f -> string) : string
   f.v.show
 
-abstract type type-struct<n,f,r>
+pub type type-struct<n,f,r>
   TStruct(
-    field : field<n,f>,
+    head-field : field<n,f>,
     rest : r
   )
 
 pub fun any/mk-field(v: a): field<n,a>
   Field(v)
-pub fun field/(+)(f1: field<n,f>, f2: field<n1,f1>) : type-struct<n,f,type-struct<n1,f1,type-nil>>
+pub fun field/(*:)(f1: field<n,f>, f2: field<n1,f1>) : type-struct<n,f,type-struct<n1,f1,type-nil>>
   TStruct(f1, TStruct(f2, TNil))
-pub fun end/(+)(f1: field<n,f>, _: type-nil) : type-struct<n,f,type-nil>
+pub fun end/(*:)(f1: field<n,f>, _: type-nil) : type-struct<n,f,type-nil>
   TStruct(f1, TNil)
-pub fun prepend/(+)(f1: field<n,f>, s: type-struct<n1,f1,r>) : type-struct<n,f,type-struct<n1,f1,r>>
+pub fun prepend/(*:)(f1: field<n,f>, s: type-struct<n1,f1,r>) : type-struct<n,f,type-struct<n1,f1,r>>
   TStruct(f1, s)
 
 pub fun direct/field(self: type-struct<n,f,r>) : field<n,f>
-  self.type-struct/field
+  self.head-field
 pub fun recur/field(self: type-struct<n,f,r>, ?field: r -> field<n1,f1>) : field<n1,f1>
   self.rest.field
 
 pub fun direct/update-field(self: type-struct<n,f,r>, new-field: field<n,f1>) : type-struct<n,f1,r>
   TStruct(new-field, self.rest)
 pub fun recur/update-field(self: type-struct<n,f,r>, new-field: field<n1,f1>, ?update-field: (r, field<n1,f1>) -> r1) : type-struct<n,f,r1>
-  TStruct(self.type-struct/field, self.rest.update-field(new-field))
+  TStruct(self.head-field, self.rest.update-field(new-field))
 
 pub fun to-list(self: type-struct<n,f,r>, ?map-field: f -> e a, ?to-list: r -> e list<a>): e list<a>
-  Cons(map-field(self.type-struct/field.v), self.rest.to-list)
+  Cons(map-field(self.head-field.v), self.rest.to-list)

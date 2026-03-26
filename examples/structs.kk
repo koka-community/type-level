@@ -15,7 +15,7 @@ type fieldb
 alias fld<n> = some<f> field<n,f>
 
 fun example()
-  val record = ("1".mk-field : fld<fielda>) + ("Hello".mk-field : fld<fieldb>)
+  val record = ("1".mk-field : fld<fielda>) *: ("Hello".mk-field : fld<fieldb>)
   val f : fld<fieldb> = record.field
   f.println
   val updated-record = record.update-field("World".mk-field : fld<fieldb>)
