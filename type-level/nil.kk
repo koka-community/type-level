@@ -26,5 +26,5 @@ pub fun (==)(_: type-nil, _: type-nil): bool
 // Show instances for type-nil
 pub fun strlist/show(_: type-nil): list<string>
   Nil
-pub fun empty/show(_: type-nil): string
+pub fun default/empty/show(_: type-nil): string
   "[]"

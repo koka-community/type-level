@@ -32,11 +32,19 @@ pub fun tcons/to-list(TCons(h, t) : type-cons<a, b>, ?to-list : (b) -> list<a>) 
 pub fun map/(==)(TCons(h1, t1) : type-cons<a, b>, TCons(h2, t2) : type-cons<a, b>, ?a/(==) : (a, a) -> bool, ?tail/(==) : (b, b) -> bool) : bool
   a/(==)(h1, h2) && tail/(==)(t1, t2)
 
-pub fun mapend/show(t : type-cons<a,b>, ?a/show : a -> string, ?tail/show : b -> string) : list<string>
-  match t 
+// Primary workhorse for showing type-level lists
+// Essentially we are pattern matching on the first two levels of types to avoid ambiguity
+pub fun map/cons-show(t : type-cons<a,type-cons<b,c>>, ?a/show : a -> e string, ?tail/cons-show : type-cons<b,c> -> e list<string>) : e list<string>
+  match t
+    TCons(h, t') -> Cons(h.show, t'.cons-show)
+// Base case for showing type-level lists: when the tail is `type-nil`, we can show the head and stop
+pub fun nil/cons-show(t : type-cons<a,type-nil>, ?a/show : a -> e string) : e list<string>
+  match t
+    TCons(h, TNil) -> Cons(h.show, [])
+// Once there is one more level of nesting (no more nested `type-cons`), we can delegate to the regular `show` instance for that type (in case the user didn't add TNil)
+pub fun default/mapend/cons-show(t : type-cons<a,b>, ?a/show : a -> e string, ?tail/show : b -> e string) : e list<string>
+  match t
     TCons(h, t') -> Cons(h.show, [t'.show])
-pub fun map/show(t : type-cons<a,b>, ?a/show : a -> string, ?tail/show : b -> list<string>) : list<string>
-  match t 
-    TCons(h, t') -> Cons(h.show, t'.show)
-pub fun list/show(t: type-cons<a, b>, ?a/show : a -> string, ?tail/show : b -> list<string>) : string
-  "[" ++ t.map/show.join(",") ++ "]"
+
+pub fun default/cons/show(t: a, ?a/cons-show : a -> e list<string>) : e string
+  "[" ++ t.cons-show.join(",") ++ "]"

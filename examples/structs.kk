@@ -10,14 +10,16 @@ import type-level/structs
 // Empty marker types (names for fields)
 type fielda
 type fieldb
-// Apparently there is issues with the language server / recompilation when using `some<f>` from another module 
-// so we cannot put this abbreviation in the structs module itself.
-alias fld<n> = some<f> field<n,f>
+// Show instances for the field names
+fun fa/show(): name<fielda>
+  Name("fielda")
+fun fb/show(): name<fieldb>
+  Name("fieldb")
 
 fun example()
-  val record = ("1".mk-field : fld<fielda>) *: ("Hello".mk-field : fld<fieldb>)
-  val f : fld<fieldb> = record.field
-  f.println
-  val updated-record = record.update-field("World".mk-field : fld<fieldb>)
-  val new : fld<fieldb> = updated-record.field
-  new.println
+  val record = (1.mk-field : field<fielda, int>) *: ("Hello".mk-field : field<fieldb, string>)
+  val f : field<fieldb, string> = record.field
+  f.show.println
+  val updated-record = record.update-field("World".mk-field : field<fieldb, string>)
+  val new : field<fieldb, string> = updated-record.field
+  new.show.println
