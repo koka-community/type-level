@@ -8,23 +8,23 @@
 module type-level/nil
 
 // An empty type-level list
-pub type type-nil
+pub type t-nil
   TNil
 
-// List operations for type-nil
-pub fun append(_: type-nil, r : b) : b
+// List operations for t-nil
+pub fun append(_: t-nil, r : b) : b
   r
-pub fun (++)(_: type-nil, r : b) : b
+pub fun (++)(_: t-nil, r : b) : b
   r
-pub fun map(l: type-nil) : type-nil
+pub fun map(l: t-nil) : t-nil
   l
-pub fun to-list(_: type-nil): list<a>
+pub fun to-list(_: t-nil): list<a>
   Nil
-pub fun (==)(_: type-nil, _: type-nil): bool
+pub fun (==)(_: t-nil, _: t-nil): bool
   True
 
-// Show instances for type-nil
-pub fun strlist/show(_: type-nil): list<string>
+// Show instances for t-nil
+pub fun strlist/show(_: t-nil): list<string>
   Nil
-pub fun default/empty/show(_: type-nil): string
+pub fun default/empty/show(_: t-nil): string
   "[]"

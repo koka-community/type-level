@@ -16,7 +16,7 @@ fun fb/show(): name<fieldb>
   Name("fieldb")
 
 fun main()
-  val l1 : type-cons<char,type-cons<int,type-nil>> = 'a' +: 1 +: TNil
+  val l1 : t-cons<char,t-cons<int,t-nil>> = 'a' +: 1 +: TNil
   l1.println
   val l2 = 'b' +: 2
   l2.println 
